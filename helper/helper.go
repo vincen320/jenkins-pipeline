@@ -3,11 +3,15 @@ package helper
 import (
 	"database/sql"
 
+	"github.com/vincen320/user-service/exception"
 	"golang.org/x/crypto/bcrypt"
 )
 
 func PanicIfError(err error) {
 	if err != nil {
+		if err == sql.ErrNoRows {
+			panic(exception.NewNotFoundErr("product not found"))
+		}
 		panic(err)
 	}
 }

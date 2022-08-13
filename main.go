@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/joho/godotenv"
 	"github.com/vincen320/user-service/app"
 	"github.com/vincen320/user-service/controller"
 	"github.com/vincen320/user-service/helper"
@@ -17,6 +18,9 @@ import (
 )
 
 func main() {
+	err := godotenv.Load()
+	helper.PanicIfError(err)
+
 	db := app.NewConnection()
 	validator := validator.New()
 	UserRepository := repository.NewUserRepository()
@@ -41,6 +45,6 @@ func main() {
 		MaxHeaderBytes: 1 << 20,
 	}
 	log.Println("User Service Start in 8080 port")
-	err := server.ListenAndServe()
+	err = server.ListenAndServe()
 	helper.PanicIfError(err)
 }
