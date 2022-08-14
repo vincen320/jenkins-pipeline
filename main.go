@@ -52,13 +52,13 @@ func main() {
 	router.GET("/users/username/:username", UserController.FindByUsername)
 
 	server := &http.Server{
-		Addr:           ":8080",
+		Addr:           ":" + os.Getenv("PORT"),
 		Handler:        router,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
-	log.Println("User Service Start in 8080 port")
+	log.Println("User Service Start on" + server.Addr + " port")
 	err := server.ListenAndServe()
 	helper.PanicIfError(err)
 }
