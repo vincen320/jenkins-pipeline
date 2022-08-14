@@ -3,12 +3,13 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/joho/godotenv"
+	_ "github.com/lib/pq"
 	"github.com/vincen320/user-service/app"
 	"github.com/vincen320/user-service/controller"
 	"github.com/vincen320/user-service/helper"
@@ -18,12 +19,25 @@ import (
 )
 
 func main() {
-	err := godotenv.Load()
-	helper.PanicIfError(err)
+	/** Tidak perlu karena di docker-compose bisa set env-file untuk dibaca
+	  		env_file:
+	              - .env
 
+	  	err := godotenv.Load()
+	  	helper.PanicIfError(err)
+	  **/
 	db := app.NewConnection()
 	validator := validator.New()
-	UserRepository := repository.NewUserRepository()
+	var UserRepository repository.UserRepository
+
+	DB_DRIVER := os.Getenv("DB_DRIVER")
+
+	if DB_DRIVER == "mysql" {
+		UserRepository = repository.NewUserRepository()
+	} else {
+		UserRepository = repository.NewUserRepositoryPq()
+	}
+
 	UserService := service.NewUserService(UserRepository, db, validator)
 	UserController := controller.NewUserController(UserService)
 
@@ -45,6 +59,6 @@ func main() {
 		MaxHeaderBytes: 1 << 20,
 	}
 	log.Println("User Service Start in 8080 port")
-	err = server.ListenAndServe()
+	err := server.ListenAndServe()
 	helper.PanicIfError(err)
 }

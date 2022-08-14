@@ -1,0 +1,8 @@
+FROM alpine:3
+
+RUN mkdir /app
+
+COPY .env /app
+COPY user_service /app
+
+CMD [ "/app/user_service" ]

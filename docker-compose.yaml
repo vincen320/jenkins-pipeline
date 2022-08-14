@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+
+  user-service:
+    build:
+      context: .
+      dockerfile: .
+    ports:
+      - "8080:8080" #DARI sesuatu yang listen PORT 8080(kanan)(jadi kalau didalam container tdk ada yg listen di port 8080 maka tidak ada yang diekspos jgua) akan diekspos keluar(laptop) ke port 8080(kiri)
+    environment:
+      DB_DRIVER: postgres
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DB_HOST: postgresDB #host ikutin nama service docker 
+      DB_PORT: 5432
+      DB_NAME: v_user
+      DB_SSL_MODE: disable
+    depends_on:
+      - postgresDB
+
+  postgresDB:
+    image: 'postgres:12.12'
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: v_user
+    volumes:
+      #Sempat error kalau path srcnya dari windows sepertinya, jadi pakai named volume baru bisa || mungkin karena image postgres os/archnya di hub itu linux semua
+      - psql_user:/var/lib/postgresql/data
+volumes:
+  psql_user:

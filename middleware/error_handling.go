@@ -16,7 +16,7 @@ func ErrorHandling() gin.HandlerFunc {
 		defer func() {
 			err := recover()
 			if err != nil {
-				log.Println(reflect.TypeOf(err)) //debugging
+				log.Println(reflect.TypeOf(err), err) //debugging
 				switch err.(type) {
 				case exception.BadRequestErr:
 					BadRequestErrResponse(c, err)
