@@ -17,6 +17,7 @@ docker_up: go_build_user_service
 #PAKAI DOCKER FILE YANG BARU (perbedaan di Dockerfile(baru))
 #KALAU PAKAI YANG docker_up(file Dockerfile yang awal2) itu build golangnya masi di windows(go_build_user_service), jadi kalau error PATHnya masih menggunakan path windows ( entah pathnya berpengaruh juga dengan PATH di docker atau tidak)
 #TAPI JIKA PAKAI Dockerfile yang baru, itu binary golangnya di build di golang sendiri, jadi PATHnya sesuai dengan posisi path yang didefinisikan di Dockerfile, lalu dari binary tsb baru di copas ke OS alpine
+#tapi sama saja sih dengan docker_up, karena di docker-composenya menggunakan Dockerfile yang sama
 docker_up2:
 #Stopping and Remove Docker Images if running
 	docker-compose down

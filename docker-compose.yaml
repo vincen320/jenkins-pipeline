@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: .
     ports:
-      - "8080:8080" #DARI sesuatu yang listen PORT 8080(kanan)(jadi kalau didalam container tdk ada yg listen di port 8080 maka tidak ada yang diekspos jgua) akan diekspos keluar(laptop) ke port 8080(kiri)
+      - "8080:8080" #DARI sesuatu yang listen PORT 8080(kanan)(jadi kalau didalam container tdk ada yg listen di port 8080 maka tidak ada yang diekspos juga) akan diekspos keluar(laptop) ke port 8080(kiri)
     environment:
       DB_DRIVER: postgres
       DB_USER: postgres
@@ -16,6 +16,7 @@ services:
       DB_PORT: 5432
       DB_NAME: v_user
       DB_SSL_MODE: disable
+      PORT: 8080
     depends_on:
       - postgresDB
 
@@ -30,5 +31,11 @@ services:
     volumes:
       #Sempat error kalau path srcnya dari windows sepertinya, jadi pakai named volume baru bisa || mungkin karena image postgres os/archnya di hub itu linux semua
       - psql_user:/var/lib/postgresql/data
+
+#VOLUME AKAN DIBUAT DENGAN NAMAPROYEK_NAMAVOLUME, jadi untuk menggunakan volume dibawah di docker-compose/container lain, harus menggunakan dengan nama user-service_psql_user (cek di docker volume ls)
 volumes:
   psql_user:
+
+    #NETWORK
+    #JADI SEBENARNYA SETIAP DOCKER-COMPOSE AKAN MEMBUAT DEFAULT NETWORKNYA MASING-MASING, MAKANYA SETIAP SERVICE DI DOCKER-COMPOSE BISA CONNECT DENGAN MENYEBUTKAN NAMA SERVICENYA SAJA 
+    #MAKA DARI ITU SEBENARNYA DOCKER COMPOSE INI MEMILIKI NETOWRKNYA SENDIRI YAITU USER-SERVICE_DEFAULT DIAMBIL DARI (NAMAPROJECT_DEFAULT) NAMAPROJECT = NAMAFOLDER, BISA CEK SENDIRI DENGAN COMMAND `docker network ls`
