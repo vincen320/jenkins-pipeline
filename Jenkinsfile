@@ -8,6 +8,11 @@ pipeline{
     stages{
         stage('Build'){
             steps{
+                script{ //start script || script Groovy || harus dibuat dalam 'steps'
+                    for (i = 0; i < 10 ; i++){
+                        echo("Script ${1}")
+                    }
+                }//end script
                 echo 'Start Build'
                 bat('go build -o user-service main.go')
                 echo 'Finish Build'
@@ -47,5 +52,5 @@ pipeline{
     }
 }
 
-//doc: Pipeline Node and Process (tentang bat,sh,powershell,dkk)
-//https://www.jenkins.io/doc/pipeline/steps/workflow-durable-task-step/
+//Script
+//https://groovy-lang.org/
