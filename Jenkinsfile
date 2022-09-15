@@ -27,7 +27,7 @@ pipeline{
                 echo("App Password: ${NAMABEBAS_PSW}")
                 bat("echo 'App Password: ${NAMABEBAS_PSW}' > rahasia.txt") //ini tidak aman
                 //Cara aman untuk data sensitive spt password(?)
-                bat("echo 'App Password: $NAMABEBAS_PSW' > rahasia2.txt") // ini aman
+                bat('echo "App Password: $NAMABEBAS_PSW" > "rahasia2.txt"') // ini aman (pakai tanda petik satu)
             }
         }
 
