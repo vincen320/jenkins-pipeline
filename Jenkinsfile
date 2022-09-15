@@ -2,6 +2,19 @@ pipeline{
     agent none
 
     stages{
+        stage('Prepare'){
+            agent{ //ditambah tiap stage
+                node{
+                    label "windows && java17"
+                }
+            }
+            steps{
+                echo("Start Job: ${env.JOB_NAME}")
+                echo("Start Build: ${env.BUILD_NAME}")
+                echo("Branch Name: ${env.BRANCH_NAME}")
+            }
+        }
+
         stage('Build'){
             agent{ //ditambah tiap stage
                 node{
@@ -15,7 +28,7 @@ pipeline{
                     }
                 }//end script
                 echo 'Start Build'
-                bat('go build -o user-service main.go')
+                //bat('go build -o user-service main.go') //mahal resource ssd
                 echo 'Finish Build'
             }
         }
