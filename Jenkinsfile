@@ -18,6 +18,13 @@ pipeline{
             }
         }
 
+        stage('Simuasi Error'){
+            steps{
+                sh("stage ini error, jadi stage dibawah juga error (tidak dijalankan) (bisa lihat di pipeline stage view")
+                sh("kalau mau berhasil coba komen untuk stage ini")
+            }
+        }
+
         stage('Deploy'){
             steps{
                 echo 'Hello Deploy'
