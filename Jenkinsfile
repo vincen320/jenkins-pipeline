@@ -8,19 +8,17 @@ pipeline{
     stages{
         stage('Build'){
             steps{
-                echo 'Hello Build 1'
-                sleep(5)
-                echo 'Hello Build 2'
-                echo 'Hello Build 3'
+                echo 'Start Build'
+                bat('go build -o user-service main.go')
+                echo 'Finish Build'
             }
         }
 
         stage('Test'){
             steps{
-                echo 'Hello Test 1'
-                sleep(5)
-                echo 'Hello Test 2'
-                echo 'Hello Test 3'
+                echo 'Start Test'
+                bat('go test github.com/vincen320/user-service/service -cover')
+                echo 'End Test'
             }
         }
 
@@ -49,5 +47,5 @@ pipeline{
     }
 }
 
-//doc: Basic Steps
-//https://www.jenkins.io/doc/pipeline/steps/workflow-basic-steps/
+//doc: Pipeline Node and Process (tentang bat,sh,powershell,dkk)
+//https://www.jenkins.io/doc/pipeline/steps/workflow-durable-task-step/
