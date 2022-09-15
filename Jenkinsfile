@@ -8,6 +8,9 @@ pipeline{
 
     stages{
         stage('Prepare'){
+            environment{ //bebas environmentnya mau disini atau global, kalau dinsi berarti cuma bisa dipakai di bracket ini aja (stage Prepare)
+                NAMABEBAS = credentials("vincen_rahasia") //pakai id credentials || terbentuk 2 varible yaitu NAMABEBAS_USR & NAMABEBAS_PSW
+            }
             agent{ //ditambah tiap stage
                 node{
                     label "windows && java17"
@@ -20,6 +23,8 @@ pipeline{
                 echo("Start Job: ${env.JOB_NAME}")
                 echo("Start Build: ${env.BUILD_NUMBER}")
                 echo("Branch Name: ${env.BRANCH_NAME}")
+                echo("App User: ${NAMABEBAS_USR}")
+                echo("App Password: ${NAMABEBAS_PSW}")
             }
         }
 
