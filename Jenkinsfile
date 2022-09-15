@@ -5,12 +5,29 @@ pipeline{
         }
     }
     stages{
-        stage('Hello'){
+        stage('Build'){
             steps{
-                echo 'Hello World'
+                echo 'Hello Build'
             }
         }
     }
+
+    stages{
+        stage('Test'){
+            steps{
+                echo 'Hello Test'
+            }
+        }
+    }
+
+    stages{
+        stage('Deploy'){
+            steps{
+                echo 'Hello Deploy'
+            }
+        }
+    }
+
     post{
         always{
             echo 'I will always say Hello again!'
