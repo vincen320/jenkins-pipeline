@@ -1,12 +1,13 @@
 pipeline{
-    agent{
-        node{
-            label "windows && java17"
-        }
-    }
+    agent none
 
     stages{
         stage('Build'){
+            agent{ //ditambah tiap stage
+                node{
+                    label "windows && java17"
+                }
+            }
             steps{
                 script{ //start script || script Groovy || harus dibuat dalam 'steps'
                     for (i = 0; i < 10 ; i++){
@@ -20,7 +21,11 @@ pipeline{
         }
 
         stage('Test'){
-            
+            agent{ //ditambah tiap stage
+                node{
+                    label "windows && java17"
+                }
+            }
             steps{
                 script{ //start script || script Groovy || harus dibuat dalam 'steps'
                 def data = [
@@ -37,6 +42,11 @@ pipeline{
         }
 
         stage('Deploy'){
+            agent{ //ditambah tiap stage
+                node{
+                    label "windows && java17"
+                }
+            }
             steps{
                 echo 'Hello Deploy 1'
                 sleep(5)
@@ -60,9 +70,3 @@ pipeline{
         }
     }
 }
-
-//Pieline Utility Steps
-//https://www.jenkins.io/doc/pipeline/steps/pipeline-utility-steps/
-
-//Install plugin ini dulu
-//https://plugins.jenkins.io/pipeline-utility-steps/
