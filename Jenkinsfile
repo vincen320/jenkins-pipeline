@@ -10,7 +10,7 @@ pipeline{
             steps{
                 script{ //start script || script Groovy || harus dibuat dalam 'steps'
                     for (i = 0; i < 10 ; i++){
-                        echo("Script ${1}")
+                        echo("Script ${i}")
                     }
                 }//end script
                 echo 'Start Build'
