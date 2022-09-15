@@ -20,7 +20,16 @@ pipeline{
         }
 
         stage('Test'){
+            
             steps{
+                script{ //start script || script Groovy || harus dibuat dalam 'steps'
+                def data = [
+                    "firstName": "Vincen",
+                    "lastName": "Tampan"
+                ]
+                writeJSON(file: "data.json", json: data) //Ini Plugin Utility Stepsnya
+                }//end script
+
                 echo 'Start Test'
                 bat('go test github.com/vincen320/user-service/service -cover')
                 echo 'End Test'
@@ -52,5 +61,8 @@ pipeline{
     }
 }
 
-//Script
-//https://groovy-lang.org/
+//Pieline Utility Steps
+//https://www.jenkins.io/doc/pipeline/steps/pipeline-utility-steps/
+
+//Install plugin ini dulu
+//https://plugins.jenkins.io/pipeline-utility-steps/
