@@ -1,0 +1,16 @@
+pipeline{
+    agent{
+        node{
+            label "windows && java17"
+        }
+    }
+    stages{
+        stage('Hello'){
+            steps{
+                echo 'Hello World'
+            }
+        }
+    }
+}
+//Cara edit labelnya klik gambar Agent/Computernya
+//Configure -> Isi bagian Labels
