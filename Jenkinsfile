@@ -128,6 +128,22 @@ pipeline{
                 echo 'Hello Deploy 3'
             }
         }
+
+        stage("Release"){
+            when{ //stage ini jalan "jika" ||start
+                expression{ //ini artinya pakai groovy syntax
+                    return params.DEPLOY; //tergantung dari parameter DEPLOYnya
+                }
+            }//end
+             agent{ //ditambah tiap stage
+                node{
+                    label "windows && java17"
+                }
+            }
+            steps{
+                echo "Release nih bro"
+            }
+        }
     }
     post{
         always{
@@ -144,3 +160,6 @@ pipeline{
         }
     }
 }
+
+//WHEN
+//https://www.jenkins.io/doc/book/pipeline/syntax/#when
