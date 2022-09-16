@@ -224,7 +224,7 @@ pipeline{
                     usernameVariable: "VAR_USER", //valuenya akan disimpan ke variable yang namananya VAR_USER (hanya bisa diakses pada block ini aja)
                     passwordVariable: "VAR_PASS" //untuk tau apa saja parameternya bisa liat di docs dibawah
                 )]){
-                    bat('echo "Release it with -u $VAR_USER -p $VAR_PASSWORD" > "release.txt"') //AKSES ARIABELNYA
+                    bat('echo "Release it with -u %VAR_USER% -p %VAR_PASSWORD%" > "release.txt"') //AKSES VARIABELNYA, dan sepertinya error karena ini pake bat bukan sh (kalau pakai bat kyknya pakai %VAR%) (COBA DEH)
                 }
             }
         }
