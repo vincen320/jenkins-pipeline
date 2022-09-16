@@ -139,7 +139,7 @@ pipeline{
                 echo("App Password: ${NAMABEBAS_PSW}")
                 bat("echo 'App Password: ${NAMABEBAS_PSW}' > rahasia.txt") //ini tidak aman
                 //Cara aman untuk data sensitive spt password(?)
-                bat('echo "App Password: $NAMABEBAS_PSW" > "rahasia2.txt"') // ini aman (pakai tanda petik satu)
+                bat('echo "App Password: %NAMABEBAS_PSW%" > "rahasia2.txt"') // ini aman (pakai tanda petik satu) (untuk bat akses variablenya pakai tanda %NAMAVAR%, kalau sh pakai $NAMAVAR)
             }
         }
 
@@ -246,6 +246,26 @@ pipeline{
     }
 }
 
-//Credentials Binding (banyak dukungan jenis credentials)
-//https://plugins.jenkins.io/credentials-binding/
-//https://www.jenkins.io/doc/pipeline/steps/credentials-binding/
+//ini multibranch pipeline (TIPE jenkinsnya yang Multibranch Pipeline(kalau yang dulu itu Pipeline saja))
+//jadi coba buat branch baru
+
+//command
+//buat branch
+//git branch develop
+
+//pindah ke branch tersebut
+//git checkout develop
+
+//push ke branch develop
+//git push origin develop
+
+//tes lihat di dashboard Jenkinsnya bakal muncul branch baru
+
+//Lalu
+//bikin lagi branch baru
+//git branch feature/contoh
+
+//pindah ke branch baru tadi
+//git checkout feature/contoh
+
+//edit readme lalu commit dan push
