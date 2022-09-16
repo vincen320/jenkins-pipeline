@@ -47,7 +47,7 @@ pipeline{
                     stage("OS Setup"){
                         agent{
                             node{
-                                label "Windows && java17"
+                                label "windows && java17"
                             }
                         }
                         steps{
