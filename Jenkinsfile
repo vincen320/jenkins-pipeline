@@ -6,6 +6,11 @@ pipeline{
         WEB = "https://wwww.vincen.com"
     }
 
+    triggers{
+        cron("*/5 * * * *") //every 5 minutes
+        //pollSCM("*/5 * * * *") //every 5 minutes
+       // upstream(upstreamProjects: 'job1,job2', threshold: hudson.model.Result.SUCCESS) //src: https://javadoc.jenkins-ci.org/hudson/model/Result.html
+    }
     parameters{ //name bisa dipakai jadi substitusi variable dengan ${params.NAME}
         string(name: "NAME", defaultValue: "Guest", description: "What is your name")
         text(name: "DESCRIPTION", defaultValue: "no description", description: "Tell me about yourself")
@@ -128,6 +133,3 @@ pipeline{
         }
     }
 }
-
-//Params
-//JENKINS_URL/job/belajar-pipeline/pipeline-syntax/globals
