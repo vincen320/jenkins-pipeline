@@ -36,7 +36,7 @@ pipeline{
                 stage("Prepare java"){
                     agent{
                         node{
-                            label windows && java17
+                            label "windows && java17"
                         }
                     }
                     steps{
@@ -46,7 +46,7 @@ pipeline{
                 stage("Prepare Maven"){
                     agent{
                         node{
-                            label windows && java17
+                            label "windows && java17"
                         }
                     }
                     steps{
