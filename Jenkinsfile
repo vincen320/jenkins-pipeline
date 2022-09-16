@@ -6,6 +6,11 @@ pipeline{
         WEB = "https://wwww.vincen.com"
     }
 
+    options{
+        disableConcurrentBuild() //mematikan jalan pararel job
+        timeout(time: 10, unit: 'MINUTES')
+    } //BISA DILEVEL pipeline atau per Stages (ini di level pipeline)
+
     stages{
         stage('Prepare'){
             environment{ //bebas environmentnya mau disini atau global, kalau dinsi berarti cuma bisa dipakai di bracket ini aja (stage Prepare)
@@ -99,3 +104,6 @@ pipeline{
         }
     }
 }
+
+//Options
+//https://www.jenkins.io/doc/book/pipeline/syntax/#options
