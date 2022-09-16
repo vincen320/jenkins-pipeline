@@ -27,11 +27,41 @@ pipeline{
 
     stages{
         //SEQUENTIAL STAGES
+        stage("OS Setup"){ //START
+            //matrix akan membuat stage dibuild menggunakan setiap kombinasi matrix axis valuenya (jadi bakal banyak) atau disebut Matrix Cell
+            matrix{
+                //matrix sifatnya seperti pararel; 1.agent ditentukan setiap stage, 2. setting failFast atau parallelAlwaysFailFast()
+                axes{ //set axes nya apa sajas
+                    axis{
+                        name "OS" //valuenya bisa diambil dengan menggunakan name nya ${OS} (lihat pada stages.stage.steps)(VIN#2)
+                        values "Windows", "Linux", "Mac"
+                    }
+                    axis{
+                        name "ARC"
+                        values "32", "64"
+                    }
+                }//END AXES
+                //kode diatas jadinya menjadi kombinasi OS+ARC: Windows 32, Windows 64, Linux 32, Linux 64, Mac 32, Mac 64
+            }//END MATRIX
+            stages{
+                stage("OS Setup"){
+                    agent{
+                        node{
+                            label "Windows && java17"
+                        }
+                    }
+                    steps{
+                        echo("Setup ${OS} ${ARC}") //valuenya bakal diambil seperti for loop matrix(VIN#2)
+                    }
+                }
+            }
+        }
+
         stage("Preparation"){
             //agent{node{label windows && java17}} //Kalau pakai Sequential stagesnya pakai pararel, agentnya harus diatur disetiap bracket 'pararel'
             //bagian ini harus pilih satu (biasa steps) antara :stages, pararel atau matrix
             //failFast true (VIN#1)
-            parallel{ //kalau pilih parallel, semua stagenya berjalan bersamaan, formatnya seperti stages juga isinya hanya saja harus isi agent pada tiap stagenya //START
+            parallel{ //kalau pilih parallel, semua stagenya berjalan bersamaan, formatnya seperti stages juga isinya hanya saja harus isi agent pada tiap stagenya
             //PADA PARAREL DEFAULTNYA JIKA ADA ERROR MAKA TETAP DITUNGGU (jika mau berhenti tambahkan perintah failFast true (VIN#1)) atau parallelAlwaysFailFast() di options
                 stage("Prepare java"){
                     agent{
