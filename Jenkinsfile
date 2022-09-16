@@ -28,19 +28,27 @@ pipeline{
     stages{
         //SEQUENTIAL STAGES
         stage("Preparation"){
-             agent{ //ditambah tiap stage
-                node{
-                    label "windows && java17"
-                }
-            }
+            //agent{node{label windows && java17}} //Kalau pakai Sequential stagesnya pakai pararel, agentnya harus diatur disetiap bracket 'pararel'
             //bagian ini harus pilih satu (biasa steps) antara :stages, pararel atau matrix
-            stages{ //kalau pilih stages, seperti biasa //START
+            //failFast true (VIN#1)
+            parallel{ //kalau pilih parallel, semua stagenya berjalan bersamaan, formatnya seperti stages juga isinya hanya saja harus isi agent pada tiap stagenya //START
+            //PADA PARAREL DEFAULTNYA JIKA ADA ERROR MAKA TETAP DITUNGGU (jika mau berhenti tambahkan perintah failFast true (VIN#1)) atau parallelAlwaysFailFast() di options
                 stage("Prepare java"){
+                    agent{
+                        node{
+                            label windows && java17
+                        }
+                    }
                     steps{
                         echo("Prepare Java nich boxq")
                     }
                 }
                 stage("Prepare Maven"){
+                    agent{
+                        node{
+                            label windows && java17
+                        }
+                    }
                     steps{
                         echo("Prepare Maven nich boxq")
                     }
