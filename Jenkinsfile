@@ -121,6 +121,7 @@ pipeline{
                 }
             }
             steps{
+                echo "MODE ENVIRONMENT: ${TARGET_ENV}"
                 echo 'Hello Deploy 1'
                 sleep(5)
                 echo 'Hello Deploy 2'
