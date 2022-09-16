@@ -111,6 +111,9 @@ pipeline{
                 message "Can we deploy?" //pesan
                 ok "Yes, of course" //tulisan di tombol ok
                 submitter "vincen,teman" //user yang bisa melakukan submit
+                parameters{
+                    choice(name: "TARGET_ENV", choices: ['DEV', 'QA', 'PROD'], description: "Which Environment?")
+                } //bisa menambahkan parameter dan bisa diakses nama parameternya tapi tanpa params. karena ini di level stage 
             }
             agent{ //ditambah tiap stage
                 node{
