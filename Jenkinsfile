@@ -6,11 +6,12 @@ pipeline{
         WEB = "https://wwww.vincen.com"
     }
 
-    triggers{
-        cron("*/5 * * * *") //every 5 minutes
-        //pollSCM("*/5 * * * *") //every 5 minutes
-       // upstream(upstreamProjects: 'job1,job2', threshold: hudson.model.Result.SUCCESS) //kalau job1 atau job2 SUCCESS maka pipeline ini akan jalan secara otomatis ||src: https://javadoc.jenkins-ci.org/hudson/model/Result.html
-    }
+    // triggers{
+    //     cron("*/5 * * * *") //every 5 minutes
+    //     //pollSCM("*/5 * * * *") //every 5 minutes
+    //    // upstream(upstreamProjects: 'job1,job2', threshold: hudson.model.Result.SUCCESS) //kalau job1 atau job2 SUCCESS maka pipeline ini akan jalan secara otomatis ||src: https://javadoc.jenkins-ci.org/hudson/model/Result.html
+    // }
+
     parameters{ //name bisa dipakai jadi substitusi variable dengan ${params.NAME}
         string(name: "NAME", defaultValue: "Guest", description: "What is your name")
         text(name: "DESCRIPTION", defaultValue: "no description", description: "Tell me about yourself")
@@ -105,6 +106,12 @@ pipeline{
         }
 
         stage('Deploy'){
+            //INPUT
+            input{
+                message "Can we deploy?" //pesan
+                ok "Yes, of course" //tulisan di tombol ok
+                submitter "vincen,teman" //user yang bisa melakukan submit
+            }
             agent{ //ditambah tiap stage
                 node{
                     label "windows && java17"
