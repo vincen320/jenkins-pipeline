@@ -9,7 +9,7 @@ pipeline{
     triggers{
         cron("*/5 * * * *") //every 5 minutes
         //pollSCM("*/5 * * * *") //every 5 minutes
-       // upstream(upstreamProjects: 'job1,job2', threshold: hudson.model.Result.SUCCESS) //src: https://javadoc.jenkins-ci.org/hudson/model/Result.html
+       // upstream(upstreamProjects: 'job1,job2', threshold: hudson.model.Result.SUCCESS) //kalau job1 atau job2 SUCCESS maka pipeline ini akan jalan secara otomatis ||src: https://javadoc.jenkins-ci.org/hudson/model/Result.html
     }
     parameters{ //name bisa dipakai jadi substitusi variable dengan ${params.NAME}
         string(name: "NAME", defaultValue: "Guest", description: "What is your name")
