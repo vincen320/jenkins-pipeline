@@ -26,6 +26,28 @@ pipeline{
     } //BISA DILEVEL pipeline atau per Stages (ini di level pipeline)
 
     stages{
+        //SEQUENTIAL STAGES
+        stage("Preparation"){
+             agent{ //ditambah tiap stage
+                node{
+                    label "windows && java17"
+                }
+            }
+            //bagian ini harus pilih satu (biasa steps) antara :stages, pararel atau matrix
+            stages{ //kalau pilih stages, seperti biasa //START
+                stage("Prepare java"){
+                    steps{
+                        echo("Prepare Java nich boxq")
+                    }
+                }
+                stage("Prepare Maven"){
+                    steps{
+                        echo("Prepare Maven nich boxq")
+                    }
+                }
+            }//END
+        }//END STAGE PREPARATION
+
         stage("Parameter"){
             agent{ //ditambah tiap stage
                 node{
@@ -144,6 +166,7 @@ pipeline{
                 echo "Release nih bro"
             }
         }
+
     }
     post{
         always{
@@ -160,6 +183,3 @@ pipeline{
         }
     }
 }
-
-//WHEN
-//https://www.jenkins.io/doc/book/pipeline/syntax/#when
