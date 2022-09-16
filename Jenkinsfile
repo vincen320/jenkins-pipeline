@@ -7,7 +7,7 @@ pipeline{
     }
 
     options{
-        disableConcurrentBuild() //mematikan jalan pararel job
+        disableConcurrentBuilds() //mematikan jalan pararel job
         timeout(time: 10, unit: 'MINUTES')
     } //BISA DILEVEL pipeline atau per Stages (ini di level pipeline)
 
