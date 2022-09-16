@@ -42,19 +42,20 @@ pipeline{
                     }
                 }//END AXES
                 //kode diatas jadinya menjadi kombinasi OS+ARC: Windows 32, Windows 64, Linux 32, Linux 64, Mac 32, Mac 64
-            }//END MATRIX
-            stages{
-                stage("OS Setup"){
-                    agent{
-                        node{
-                            label "Windows && java17"
+                //STAGESNYA
+                stages{
+                    stage("OS Setup"){
+                        agent{
+                            node{
+                                label "Windows && java17"
+                            }
+                        }
+                        steps{
+                            echo("Setup ${OS} ${ARC}") //valuenya bakal diambil seperti for loop matrix(VIN#2)
                         }
                     }
-                    steps{
-                        echo("Setup ${OS} ${ARC}") //valuenya bakal diambil seperti for loop matrix(VIN#2)
-                    }
                 }
-            }
+            }//END MATRIX
         }
 
         stage("Preparation"){
