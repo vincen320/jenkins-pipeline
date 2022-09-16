@@ -218,7 +218,14 @@ pipeline{
                 }
             }
             steps{
-                echo "Release nih bro"
+                //CREDENTIALS BINDING
+                withCredentials([usernamePassword( //jenisnya bisa liat di docs bawah apa saja selain usernamePassword(ditulis didalam array)
+                    credentialsId: "vincen_rahasia", //id credentialsNya
+                    usernameVariable: "VAR_USER" //valuenya akan disimpan ke variable yang namananya VAR_USER (hanya bisa diakses pada block ini aja)
+                    passwordVariable: "VAR_PASS" //untuk tau apa saja parameternya bisa liat di docs dibawah
+                )]){
+                    bat('echo "Release it with -u $VAR_USER -p $VAR_PASSWORD" > "release.txt"') //AKSES ARIABELNYA
+                }
             }
         }
 
@@ -238,3 +245,7 @@ pipeline{
         }
     }
 }
+
+//Credentials Binding (banyak dukungan jenis credentials)
+//https://plugins.jenkins.io/credentials-binding/
+//https://www.jenkins.io/doc/pipeline/steps/credentials-binding/
