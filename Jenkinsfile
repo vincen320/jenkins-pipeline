@@ -6,12 +6,36 @@ pipeline{
         WEB = "https://wwww.vincen.com"
     }
 
+    parameters{ //name bisa dipakai jadi substitusi variable dengan ${params.NAME}
+        string(name: "NAME", defaultValue: "Guest", description: "What is your name")
+        text(name: "DESCRIPTION", defaultValue: "no description", description: "Tell me about yourself")
+        booleanParam(name: "DEPLOY", defaultValue: false, description: "Need to Deploy")
+        choice(name: "SOCIAL_MEDIA", choices: ['Instagram', 'Facebook', 'Twitter'], description: "Which Social Media")
+        password(name: "SECRET", defaultValue: "", description: "Encrypt Key")
+    }
+
     options{
         disableConcurrentBuilds() //mematikan jalan pararel job
-        timeout(time: 10, unit: 'MINUTES')
+        timeout(time: 10, unit: 'MINUTES')//totalny bukan timeout per stage
     } //BISA DILEVEL pipeline atau per Stages (ini di level pipeline)
 
     stages{
+        stage("Parameter"){
+            agent{ //ditambah tiap stage
+                node{
+                    label "windows && java17"
+                }
+            }
+            steps{
+                echo "Hello ${params.NAME}"
+                echo "Your Description ${params.DESCRIPTION}"
+                echo "Your Social media is ${params.SOCIAL_MEDIA}"
+                echo "Need to deploy ${params.DEPLOY}"
+                echo "Your secret is ${params.SECRET}"
+            }
+
+        }
+
         stage('Prepare'){
             environment{ //bebas environmentnya mau disini atau global, kalau dinsi berarti cuma bisa dipakai di bracket ini aja (stage Prepare)
                 NAMABEBAS = credentials("vincen_rahasia") //pakai id credentials || terbentuk 2 varible yaitu NAMABEBAS_USR & NAMABEBAS_PSW
@@ -105,5 +129,5 @@ pipeline{
     }
 }
 
-//Options
-//https://www.jenkins.io/doc/book/pipeline/syntax/#options
+//Params
+//JENKINS_URL/job/belajar-pipeline/pipeline-syntax/globals
