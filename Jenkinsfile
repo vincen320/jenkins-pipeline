@@ -42,6 +42,22 @@ pipeline{
                     }
                 }//END AXES
                 //kode diatas jadinya menjadi kombinasi OS+ARC: Windows 32, Windows 64, Linux 32, Linux 64, Mac 32, Mac 64
+
+                //INI EXCLUDE (MENGHIRAUKAN BEBERAPA MATRIX)
+                excludes{
+                    exclude{
+                        axis{
+                            name "OS"
+                            values "Mac"
+                        }
+                        axis{
+                            name "ARC"
+                            values "32"
+                        }
+                    }
+                }//END EXCLUDES 
+                //berarti menghiraukan matrix yang Mac 32
+
                 //STAGESNYA
                 stages{
                     stage("OS Setup"){
